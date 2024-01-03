@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IoIosMenu, IoMdClose } from 'react-icons/io';
 import React from 'react';
+import Footer from './Footer';
 type TNavlist = {
 	name: string;
 	href: string;
@@ -71,33 +72,38 @@ const MobileNav = ({
 		setActive((prev) => !prev);
 	}
 	return (
-		<nav className='h-screen bg-black p-2 text-gray-600 fixed w-screen overflow-hidden z-50'>
-			<button
-				className='h-[75px] text-gray-600 flex items-center'
-				onClick={handleClick}>
-				<IoMdClose size={'25px'} />
-			</button>
-			<ul>
-				{navlist.map((list, index) => (
-					<li
-						key={index}
-						className={
-							pathName === list.href
-								? 'text-white'
-								: 'text-gray-600'
-						}
-						onClick={handleClick}>
-						<Link href={list.href}>{list.name}</Link>
-					</li>
-				))}
-			</ul>
-		</nav>
+		<header className='h-screen bg-black p-2 text-gray-600 fixed w-screen overflow-hidden z-50'>
+			<nav>
+				<button
+					className='h-[75px] text-gray-600 flex items-center'
+					onClick={handleClick}>
+					<IoMdClose size={'25px'} />
+				</button>
+				<ul className='pl-3 pr-3 text-base flex flex-col gap-1 uppercase'>
+					{navlist.map((list, index) => (
+						<li
+							key={index}
+							className={
+								pathName === list.href
+									? 'text-white font-bold'
+									: 'text-gray-600'
+							}
+							onClick={handleClick}>
+							<Link href={list.href}>{list.name}</Link>
+							{pathName === list.href ? (
+								<span className='block h-[1px] bg-white w-full'></span>
+							) : null}
+						</li>
+					))}
+				</ul>
+			</nav>
+			<Footer />
+		</header>
 	);
 };
 const Navbar = () => {
 	const pathName = usePathname();
 	const [isActive, setActive] = React.useState<boolean>(false);
-	console.info(isActive);
 	return isActive ? (
 		<MobileNav
 			isActive={isActive}

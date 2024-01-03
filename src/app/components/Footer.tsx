@@ -33,7 +33,7 @@ const socialMedia = [
 ];
 const Footer = () => {
 	return (
-		<footer className='bg-black lg:mr-[80px] lg:ml-[80px] text-gray-600'>
+		<div className='bg-black lg:mr-[80px] lg:ml-[80px] text-gray-600'>
 			<div className='lg:h-[240px] w-full lg:box-border flex flex-col gap-2 lg:pt-20 lg:pl-10 lg:pr-10 pt-14 p-4 pb-2'>
 				<div className='flex lg:flex-row lg:justify-end justify-center w-full gap-3 capitalize flex-col'>
 					{footerList.map((field, index) => (
@@ -61,7 +61,7 @@ const Footer = () => {
 					))}
 				</div>
 			</div>
-		</footer>
+		</div>
 	);
 };
 
