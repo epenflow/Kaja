@@ -55,7 +55,7 @@ const Footer = () => {
 						</div>
 					))}
 				</div>
-				<Line />
+				<span className='bg-gray-600 block h-[1px] lg:h-[2px] w-full'></span>
 				<div className='flex flex-row justify-end gap-2'>
 					{socialMedia.map((list, index) => (
 						<div key={index}>{list}</div>
