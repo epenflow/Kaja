@@ -6,7 +6,6 @@ import {
 	FaDribbble,
 } from 'react-icons/fa';
 import React from 'react';
-import Line from './Line';
 type TFooterList = {
 	name: string;
 	list: string[];
