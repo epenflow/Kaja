@@ -7,6 +7,10 @@ import Footer from './Footer';
 type TNavlist = {
 	name: string;
 	href: string;
+	child?: Array<{
+		name: string;
+		href: string;
+	}>;
 };
 const navlist: TNavlist[] = [
 	{ name: 'home', href: '/' },
