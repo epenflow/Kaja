@@ -31,9 +31,23 @@ const socialMedia = [
 	<FaGithub size={25} />,
 	<FaDribbble size={25} />,
 ];
-const Footer = () => {
+const styles = 'bg-black lg:mr-[80px] lg:ml-[80px] text-gray-600';
+const FooterWrapper = ({
+	isFooter,
+	children,
+}: {
+	isFooter: boolean;
+	children: React.ReactNode;
+}) => {
+	return isFooter ? (
+		<footer className={styles}>{children}</footer>
+	) : (
+		<div className={styles}>{children}</div>
+	);
+};
+const Footer = ({ isFooter }: { isFooter: boolean }) => {
 	return (
-		<div className='bg-black lg:mr-[80px] lg:ml-[80px] text-gray-600'>
+		<FooterWrapper isFooter={isFooter}>
 			<div className='lg:h-[240px] w-full lg:box-border flex flex-col gap-2 lg:pt-20 lg:pl-10 lg:pr-10 pt-14 p-4 pb-2'>
 				<div className='flex lg:flex-row lg:justify-end justify-center w-full gap-3 capitalize flex-col'>
 					{footerList.map((field, index) => (
@@ -61,7 +75,7 @@ const Footer = () => {
 					))}
 				</div>
 			</div>
-		</div>
+		</FooterWrapper>
 	);
 };
 

@@ -21,9 +21,7 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<Navbar />
 				{children}
-				<footer>
-					<Footer />
-				</footer>
+				<Footer isFooter={true} />
 			</body>
 		</html>
 	);

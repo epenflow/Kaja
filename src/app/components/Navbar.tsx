@@ -97,7 +97,7 @@ const MobileNav = ({
 					))}
 				</ul>
 			</nav>
-			<Footer />
+			<Footer isFooter={false} />
 		</header>
 	);
 };
