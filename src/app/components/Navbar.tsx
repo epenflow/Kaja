@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { IoIosMenu, IoMdClose } from 'react-icons/io';
 import React from 'react';
 import Footer from './Footer';
+import { list } from 'postcss';
 type TNavlist = {
 	name: string;
 	href: string;
@@ -14,8 +15,34 @@ type TNavlist = {
 };
 const navlist: TNavlist[] = [
 	{ name: 'home', href: '/' },
-	{ name: 'about', href: '/about' },
-	{ name: 'services', href: '/services' },
+	{
+		name: 'about',
+		href: '/about',
+		child: [
+			{
+				name: 'profile',
+				href: '/profile',
+			},
+			{
+				name: 'quality',
+				href: '/quality',
+			},
+			{
+				name: 'activity',
+				href: '/activity',
+			},
+		],
+	},
+	{
+		name: 'services',
+		href: '/services',
+		child: [
+			{
+				name: 'testing',
+				href: '/',
+			},
+		],
+	},
 	{ name: 'contact', href: '/contact' },
 	{ name: 'pricing', href: '/pricing' },
 ];
@@ -26,26 +53,87 @@ const DesktopNav = ({
 	pathName: string;
 	setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+	const [isEnter, setEnter] = React.useState<Array<boolean>>([]);
 	function handleClick() {
 		setActive((prev) => !prev);
+	}
+	function mouseEnter(index: number) {
+		console.info(index);
+		setEnter((prev) => {
+			let arr = [...prev];
+			arr[index] = true;
+			return arr;
+		});
+		console.info(isEnter);
+	}
+	function mouseLeave(index: number) {
+		setEnter((prev) => {
+			let arr = [...prev];
+			arr[index] = false;
+			return arr;
+		});
 	}
 	return (
 		<nav className='bg-black flex lg:justify-center p-2 h-[75px] items-center'>
 			<ul className='lg:flex hidden flex-row gap-4 capitalize text-sm font-light'>
 				{navlist.map((list, index) => {
-					return (
-						<li key={index}>
-							<Link
-								href={list.href}
-								className={
-									pathName === list.href
-										? `text-white`
-										: `text-gray-600`
-								}>
-								{list.name}
-							</Link>
-						</li>
-					);
+					if (!list.child) {
+						return (
+							<li key={index}>
+								<Link
+									href={list.href}
+									className={
+										pathName === list.href
+											? `text-white`
+											: `text-gray-600`
+									}>
+									{list.name}
+								</Link>
+							</li>
+						);
+					} else {
+						return (
+							<div
+								key={index}
+								onMouseEnter={() => mouseEnter(index)}
+								onMouseLeave={() => mouseLeave(index)}
+								className='text-gray-600 relative inline-block'>
+								<li>
+									<Link
+										href={list.href}
+										className={
+											pathName === list.href
+												? `text-white`
+												: `text-gray-600`
+										}>
+										{list.name}
+									</Link>
+								</li>
+								<div
+									className='absolute flex flex-col gap-2 w-40 justify-center'
+									style={
+										isEnter
+											? {
+													backgroundColor: 'black',
+											  }
+											: { backgroundColor: 'unset' }
+									}>
+									{isEnter[index]
+										? list.child.map(
+												(child, childIndex) => (
+													<Link
+														className='z-[100] p-2 box-border hover:text-white'
+														key={childIndex}
+														href={child.href}>
+														{child.name}
+													</Link>
+												)
+										  )
+										: null}
+								</div>
+							</div>
+						);
+					}
 				})}
 			</ul>
 			<button
