@@ -17,7 +17,7 @@ const navlist: TNavlist[] = [
 	{ name: 'home', href: '/' },
 	{
 		name: 'about',
-		href: '/about',
+		href: '#',
 		child: [
 			{
 				name: 'profile',
@@ -35,7 +35,7 @@ const navlist: TNavlist[] = [
 	},
 	{
 		name: 'services',
-		href: '/services',
+		href: '#',
 		child: [
 			{
 				name: 'testing',
@@ -45,6 +45,10 @@ const navlist: TNavlist[] = [
 	},
 	{ name: 'contact', href: '/contact' },
 	{ name: 'pricing', href: '/pricing' },
+	{
+		name: 'blog',
+		href: '/blog',
+	},
 ];
 const DesktopNav = ({
 	pathName,
@@ -158,7 +162,7 @@ const MobileNav = ({
 	function handleClick() {
 		setActive((prev) => !prev);
 	}
-	function handleClickSummary(index: number) {
+	function handleClickChild(index: number) {
 		setSummary((prev) => {
 			let arr = [...prev];
 			arr[index] = arr[index] ? false : true;
@@ -182,8 +186,7 @@ const MobileNav = ({
 									pathName === list.href
 										? 'text-white font-bold'
 										: 'text-gray-600'
-								}
-								onClick={handleClick}>
+								}>
 								<Link href={list.href}>{list.name}</Link>
 								{pathName === list.href ? (
 									<span className='block h-[1px] bg-white w-full'></span>
@@ -192,7 +195,7 @@ const MobileNav = ({
 						) : (
 							<div
 								key={index}
-								onClick={() => handleClickSummary(index)}
+								onClick={() => handleClickChild(index)}
 								className='flex flex-col'>
 								<Link
 									href={list.href}
