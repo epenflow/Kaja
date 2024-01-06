@@ -10,7 +10,7 @@ interface Props {
 		slug: string;
 	};
 }
-export async function generatedStaticParams() {
+async function generatedStaticParams() {
 	const query = groq`*[_type=='blog']{
 		_id
 	}`;
